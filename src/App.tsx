@@ -1,4 +1,5 @@
 import TldrawComponent from './TldrawComponent';
+import NavBar from './components/Navbar';
 import Sidebar from "./components/Sidebar";
 import "./draw.css";
 import { useState } from "react";
@@ -32,7 +33,8 @@ const App = () => {
   };
   return (
     <div className='container'>
-      <TldrawComponent responseData={responseData} loading={loading} />
+      <NavBar/>
+      <TldrawComponent responseData={responseData} loading={loading}/>
       <Sidebar onSubmit={handleSubmit} loading={loading} />
     </div>
   );

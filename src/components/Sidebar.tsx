@@ -14,7 +14,7 @@ export default function Sidebar({ onSubmit, loading }: SidebarProps) {
 
   return (
     <div className="sidebar">
-        <h2>Raw Content</h2>
+        <h3 style={{paddingTop: "40px"}}>Raw Content</h3>
       <textarea
         onChange={(e) => setSentences(e.target.value)}
         className="input-area"
