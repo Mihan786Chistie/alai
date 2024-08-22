@@ -1,10 +1,41 @@
-import TldrawComponent from "./TldrawComponent";
+import TldrawComponent from './TldrawComponent';
+import Sidebar from "./components/Sidebar";
+import "./draw.css";
+import { useState } from "react";
 
-export default function App() {
+const App = () => {
+  const [responseData, setResponseData] = useState<{ heading: string; description: string }[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (sentences: string) => {
+    setLoading(true);
+    try {
+      const response = await fetch("http://192.168.141.202:5000/generate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(sentences.split("\n")),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch data from server");
+      }
+
+      const data = await response.json();
+      setResponseData(data);
+    } catch (error) {
+      console.error("Error:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
-    <div style={{ position: "fixed", inset: 0 }}>
-      <h1>Tldraw Canvas:</h1>
-      <TldrawComponent />
+    <div className='container'>
+      <TldrawComponent responseData={responseData} loading={loading} />
+      <Sidebar onSubmit={handleSubmit} loading={loading} />
     </div>
   );
-}
+};
+
+export default App;
