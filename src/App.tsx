@@ -11,7 +11,7 @@ const App = () => {
   const handleSubmit = async (sentences: string) => {
     setLoading(true);
     try {
-      const response = await fetch("http://192.168.141.202:5000/generate", {
+      const response = await fetch("https://alai-flask-server.onrender.com/generate", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
